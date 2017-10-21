@@ -6,7 +6,7 @@
         <p>Your username and password didn't match.
            Please try again.</p>
     {% else %}
-        <p>Please type your username and password.</p>
+        <p>Please type your username and password. If you don't have an account, Click <a href="{% url 'register' %}">Registe</a>.</p>
     {% endif %}
     <div class='login-form'>
         <form action="{% url 'login' %}" method="POST">
