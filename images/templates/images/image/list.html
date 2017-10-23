@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Images List{% endblock %}
+
+{% block content %}
+<h1> Bookmarked Images List.</h1>
+{% for image in images %}
+{% load thumbnail %}
+{% thumbnail image.image "30" as im %}
+<a href="{{ image.image.url }}"><img src="{{ im.url }}" class="image-detail"></a>
+{% endthumbnail %}
+<p><a href="{{ image.get_absolute_url }}">{{ image.title }}</a></p><br>
+{% endfor %}
+{% include "pagination.html" with page=images %}
+<a href="{% url 'images:create' %}">Create image bookmark.</a>
+{% endblock %}

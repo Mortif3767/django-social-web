@@ -4,8 +4,11 @@
 
 {% block content %}
     <h1>{{ image.title }}</h1>
-    <img src="{{ image.image.url }}" class="image-detail">
-    {% with total_likes=image.users_like.count %}
+    {% load thumbnail %}
+    {% thumbnail image.image "300" as im %}
+    <a href="{{ image.image.url }}"><img src="{{ im.url }}" class="image-detail"></a>
+    {% endthumbnail %}
+    {% with total_likes=image.user_like.count %}
         <div class="image-info">
                 <div>
                     <span class="count">
@@ -14,9 +17,9 @@
                  </div>
                  {{ image.description|linebreaks }}
         <div class="image-likes">
-            {% for user in image.users_like.all %}
+            {% for user in image.user_like.all %}
                 <div>
-                    <img src="{{ user.profile.photo.url }}">
+                    {#<img src="{{ user.profile.photo.url }}">#}
                     <p>{{ user.first_name }}</p>
                 </div>
             {% empty %}
