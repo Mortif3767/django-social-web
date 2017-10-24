@@ -1,3 +1,17 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+defusedxml==0.5.0
 Django==1.8.6
+idna==2.6
+oauthlib==2.0.6
 olefile==0.44
 Pillow==4.3.0
+PyJWT==1.5.3
+python-social-auth==0.3.6
+python3-openid==3.1.0
+requests==2.18.4
+requests-oauthlib==0.8.0
+six==1.11.0
+social-auth-core==1.4.0
+sorl-thumbnail==12.3
+urllib3==1.22
