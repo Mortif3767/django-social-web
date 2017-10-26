@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from actions.utils import create_action
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Contact
 
@@ -45,6 +46,7 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             profile = Profile.objects.create(user=new_user)
+            create_action(new_user, 'has create an account')
             return render(request, 'account/register_done.html', {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -103,6 +105,7 @@ def follow(request, username):
         messages.warning(request, 'You have been followed this user!')
     else:
         Contact.objects.get_or_create(follower=request.user, followed=user)  #必须用get_or_create,如果用CREATE那么会造成重复关注
+        create_action(request.user, 'is following', user) #这句算是对create_action最好的解释了
         messages.success(request, 'follow success!')
     return redirect(user.get_absolute_url())
 

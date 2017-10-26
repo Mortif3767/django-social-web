@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'images',
     'sorl.thumbnail',
+    'actions',
 )
 
 MIDDLEWARE_CLASSES = (

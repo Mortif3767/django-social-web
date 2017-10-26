@@ -12,11 +12,11 @@
     </span>
     {% if request.user != user %}
         {% if request.user in user.followers.all %}
-        <a href="{% url 'unfollow' username=user.username %}">
+        <a href="{% url 'unfollow' username=user.username %}" class="followbutton">
             UnFollow
         </a>
         {% else %}
-        <a href="{% url 'follow' username=user.username %}">
+        <a href="{% url 'follow' username=user.username %}" class="followbutton">
             Follow
         </a>
         {% endif %}
