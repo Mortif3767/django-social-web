@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
-from .models import Profile
+from .models import Profile, Contact
 
 
 def user_login(request):
@@ -92,3 +92,29 @@ def user_detail(request, username):
                   'account/user/detail.html',
                   {'section': 'people',
                   'user': user})
+
+
+@login_required
+def follow(request, username):
+    user = get_object_or_404(User,
+                             username=username,
+                             is_active=True)
+    if request.user in user.followers.all():
+        messages.warning(request, 'You have been followed this user!')
+    else:
+        Contact.objects.get_or_create(follower=request.user, followed=user)  #必须用get_or_create,如果用CREATE那么会造成重复关注
+        messages.success(request, 'follow success!')
+    return redirect(user.get_absolute_url())
+
+
+@login_required
+def unfollow(request, username):
+    user = get_object_or_404(User,
+                             username=username,
+                             is_active=True)
+    if request.user not in user.followers.all():
+        messages.warning(request, 'invalid operate!')  
+    else:
+        Contact.objects.filter(follower=request.user, followed=user).delete()
+        messages.success(request, 'unfollow done!')
+    return redirect(user.get_absolute_url())

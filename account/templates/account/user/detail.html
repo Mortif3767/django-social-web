@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block content %}
+    <h1>{{ user.get_full_name }}</h1>
+    <div class="profile-info">
+    <img src="{{ user.profile.photo.url }}">
+    </div>
+    {% with total_followers=user.followers.count %}
+    <span class="count">
+        <span class="total">{{ total_followers }}</span>
+        follower{{ total_followers|pluralize }}
+    </span>
+    {% if request.user != user %}
+        {% if request.user in user.followers.all %}
+        <a href="{% url 'unfollow' username=user.username %}">
+            UnFollow
+        </a>
+        {% else %}
+        <a href="{% url 'follow' username=user.username %}">
+            Follow
+        </a>
+        {% endif %}
+    {% endif %}
+    {% endwith %}
+{% endblock %}

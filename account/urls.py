@@ -34,5 +34,7 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^users/$', views.user_list, name='user_list'),
-    url(r'^users/(?P<username>[-\w]+)$', views.user_detail, name='user_detail')
+    url(r'^users/(?P<username>[-\w]+)/$', views.user_detail, name='user_detail'),
+    url(r'^users/unfollow/(?P<username>[-\w]+)/$', views.unfollow, name='unfollow'),
+    url(r'^users/follow/(?P<username>[-\w]+)/$', views.follow, name='follow'),
 ]

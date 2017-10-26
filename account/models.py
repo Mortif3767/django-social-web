@@ -25,8 +25,8 @@ class Contact(models.Model):
         return '{} follows {}'.format(self.follower, self.followed)
 
 
-User.add_to_class('followers',
+User.add_to_class('followed',
                   models.ManyToManyField('self',
                                          through=Contact,
-                                         related_name='followed',
+                                         related_name='followers',
                                          symmetrical=False))
