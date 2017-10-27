@@ -7,7 +7,9 @@
        {% for user in users %}
          <div class="user">
             <a href="{{ user.get_absolute_url }}">
+            {% if user.profile.photo %}
             <img src="{{ user.profile.photo.url }}">
+            {% endif %}
            </a>
            <div class="info">
              <a href="{{ user.get_absolute_url }}" class="title">

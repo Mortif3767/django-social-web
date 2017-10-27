@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from actions.utils import create_action
+from actions.models import Action
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Contact
 
@@ -33,8 +34,16 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    actions = Action.objects.exclude(user=request.user)
+    followed_ids = request.user.followed.values_list('id', flat=True)
+    if followed_ids:
+        actions = actions.filter(user_id__in=followed_ids)\
+            .select_related('user', 'user__profile')\
+            .prefetch_related('target')
+    actions = actions[:10]
     return render(request, 'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard',
+                   'actions': actions})
                   #section用来追踪用户在站点中正在查看的页面
 
 
