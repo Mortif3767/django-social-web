@@ -17,7 +17,7 @@
 **`images`应用**  
 1.建立`Image model`，创建`ImageCreateForm`表单，定义`clean_url`方法，确保图片分享url合法，覆写`save`方法，从互联网下载照片。  
 2.使用`sorl-thumbnail`缩略图显示。  
-3.使用`Redis`存储视图函数中图片浏览量，并生成图片浏览排行`views.image_ranking`。  
+3.使用 **`Redis`** 存储视图函数中图片浏览量，并生成图片浏览排行`views.image_ranking`。  
   
 **`actions`应用**   
 建立`Action model`，定义属性`user`：操作用户，`verb`：字符串存储行为，添加**通用关系**`target`：目标对象。  
