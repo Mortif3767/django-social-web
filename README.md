@@ -15,6 +15,22 @@
 3.通过中间表`Contact`建立`User`模型多对多关系，实现用户关注`follower`与被关注`followed`关系。  
   
 **`images`应用**  
-1.建立`Image model`，创建`ImageCreateForm`表单，定义`clean_url`方法，确保图片分享url合法，覆写`save`方法，从互联网下载照片。
-2.使用`sorl-thumbnail`缩略图显示。
+1.建立`Image model`，创建`ImageCreateForm`表单，定义`clean_url`方法，确保图片分享url合法，覆写`save`方法，从互联网下载照片。  
+2.使用`sorl-thumbnail`缩略图显示。  
 3.使用`Redis`存储视图函数中图片浏览量，并生成图片浏览排行`views.image_ranking`。  
+  
+**`actions`应用**   
+建立`Action model`，定义属性`user`：操作用户，`verb`：字符串存储行为，添加**通用关系**`target`：目标对象。  
+
+**其他**  
+1.尝试增加额外数据冗余优化读取性能，使用`Image model`额外字段`total_likes`优化聚合函数计算照片总喜欢量，在`images`应用中添加信号接收函数`signals.user_like_changed`，保持冗余数据更新。  
+2.使用messages框架，实现消息提醒。  
+  
+```
+|- django-social-web
+    |- account\     #app
+    |- images\      #app
+    |- actions\     #app
+    |- bookmarks\   #subject
+    #...
+```
