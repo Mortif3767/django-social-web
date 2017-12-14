@@ -12,7 +12,8 @@
 **`account`应用**  
 1.使用django内置`authentication`框架中的操作视图函数实现：**登录、退出、修改密码、密码重置**等功能。  
 2.建立视图函数实现**注册**`views.register`功能，扩展`django authentication`框架中的`User model`，建立`Profile model`，实现**编辑个人资料**功能`views.edit`。  
-3.通过中间表`Contact`建立`User`模型多对多关系，实现用户关注`follower`与被关注`followed`关系。  
+3.扩展`authenticate`认证，增加邮箱登陆。  
+4.通过中间表`Contact`建立`User`模型多对多关系，实现用户关注`follower`与被关注`followed`关系。  
   
 **`images`应用**  
 1.建立`Image model`，创建`ImageCreateForm`表单，定义`clean_url`方法，确保图片分享url合法，覆写`save`方法，从互联网下载照片。  
