@@ -14,4 +14,4 @@ requests-oauthlib==0.8.0
 six==1.11.0
 social-auth-core==1.4.0
 sorl-thumbnail==12.3
-urllib3==1.22
+urllib3==1.26.5
